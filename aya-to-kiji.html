@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文と質 — Aya to Kiji</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2340;
+    --navy-deep: #0f1526;
+    --green: #3d6b56;
+    --green-light: #4e8a6e;
+    --green-muted: #c8d9d2;
+    --grey: #8a8f9a;
+    --grey-light: #d8dade;
+    --grey-pale: #f2f3f4;
+    --white: #fafafa;
+    --offwhite: #f5f5f2;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--white);
+    color: var(--navy-deep);
+    font-family: 'Noto Serif JP', 'Yu Mincho', 'YuMincho', serif;
+    font-weight: 200;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: var(--navy);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease;
+    transform: translate(-50%, -50%);
+  }
+
+  .cursor-ring {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--navy);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+  }
+
+  /* Navigation */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 32px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    mix-blend-mode: multiply;
+  }
+
+  .nav-logo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-decoration: none;
+    color: var(--navy-deep);
+  }
+
+  .nav-logo-ja {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: 15px;
+    letter-spacing: 0.3em;
+    line-height: 1;
+  }
+
+  .nav-logo-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.45em;
+    color: var(--grey);
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--navy-deep);
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 2px;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--green);
+    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 160px 60px 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.4s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 200;
+    font-size: clamp(42px, 5vw, 72px);
+    line-height: 1.5;
+    letter-spacing: 0.15em;
+    color: var(--navy-deep);
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 5.5vw, 80px);
+    color: var(--green);
+    display: block;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-desc {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 200;
+    font-size: 13px;
+    line-height: 2.4;
+    color: var(--grey);
+    max-width: 320px;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeIn 1.4s ease 0.3s forwards;
+  }
+
+  .hero-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 40%, var(--green) 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-image-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 60px,
+        rgba(255,255,255,0.02) 60px,
+        rgba(255,255,255,0.02) 61px
+      );
+  }
+
+  .hero-image-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    writing-mode: vertical-rl;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 48px;
+    left: 60px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards;
+  }
+
+  .hero-scroll span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+
+  .scroll-line {
+    width: 40px;
+    height: 1px;
+    background: var(--grey-light);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--green);
+    animation: scrollLine 2s ease-in-out 1.5s infinite;
+  }
+
+  /* Section base */
+  section {
+    padding: 120px 60px;
+  }
+
+  .section-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.6em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 64px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--green);
+  }
+
+  /* About */
+  .about {
+    background: var(--offwhite);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-text h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 200;
+    font-size: clamp(28px, 3vw, 44px);
+    line-height: 1.8;
+    letter-spacing: 0.2em;
+    color: var(--navy-deep);
+    margin-bottom: 40px;
+  }
+
+  .about-text p {
+    font-size: 13px;
+    line-height: 2.8;
+    color: var(--grey);
+    letter-spacing: 0.08em;
+    max-width: 480px;
+  }
+
+  .about-visual {
+    position: relative;
+    height: 480px;
+  }
+
+  .about-card {
+    position: absolute;
+    background: var(--white);
+    padding: 48px;
+  }
+
+  .about-card:first-child {
+    top: 0;
+    right: 0;
+    width: 80%;
+    height: 320px;
+    background: var(--navy);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .about-card:last-child {
+    bottom: 0;
+    left: 0;
+    width: 60%;
+    height: 200px;
+    background: var(--green-muted);
+    display: flex;
+    align-items: center;
+  }
+
+  .about-card-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.05em;
+  }
+
+  .about-card:last-child .about-card-text {
+    color: var(--green);
+    font-size: 13px;
+    font-style: normal;
+    letter-spacing: 0.2em;
+  }
+
+  /* Artists */
+  .artists {
+    background: var(--white);
+  }
+
+  .artists-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 80px;
+  }
+
+  .artists-header h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 200;
+    font-size: clamp(28px, 3vw, 44px);
+    letter-spacing: 0.2em;
+    color: var(--navy-deep);
+  }
+
+  .artists-count {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 300;
+    color: var(--grey-light);
+    line-height: 1;
+  }
+
+  .artists-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .artist-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    background: var(--grey-pale);
+    cursor: none;
+  }
+
+  .artist-card:first-child {
+    grid-row: span 2;
+    aspect-ratio: auto;
+  }
+
+  .artist-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .artist-placeholder-1 { background: linear-gradient(135deg, #c8d9d2 0%, #3d6b56 100%); }
+  .artist-placeholder-2 { background: linear-gradient(135deg, #d8dade 0%, #1a2340 100%); }
+  .artist-placeholder-3 { background: linear-gradient(135deg, #1a2340 0%, #3d6b56 100%); }
+  .artist-placeholder-4 { background: linear-gradient(135deg, #f2f3f4 0%, #c8d9d2 100%); }
+  .artist-placeholder-5 { background: linear-gradient(135deg, #3d6b56 0%, #0f1526 100%); }
+
+  .artist-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15,21,38,0.85) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 36px;
+  }
+
+  .artist-card:hover .artist-overlay {
+    opacity: 1;
+  }
+
+  .artist-name-ja {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 0.25em;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .artist-name-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--green-muted);
+  }
+
+  .artist-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 12px;
+  }
+
+  .artist-img-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* Services */
+  .services {
+    background: var(--navy-deep);
+    color: var(--white);
+  }
+
+  .services .section-label {
+    color: var(--green-muted);
+  }
+
+  .services .section-label::before {
+    background: var(--green-muted);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .service-item {
+    padding: 56px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 40px;
+    align-items: start;
+    transition: background 0.3s ease;
+    padding-right: 60px;
+  }
+
+  .service-item:nth-child(even) {
+    padding-left: 60px;
+    padding-right: 0;
+    border-left: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .service-item:hover {
+    background: rgba(61, 107, 86, 0.08);
+  }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--green-muted);
+    padding-top: 4px;
+    opacity: 0.6;
+  }
+
+  .service-content h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 200;
+    font-size: 18px;
+    letter-spacing: 0.2em;
+    color: var(--white);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .service-content p {
+    font-size: 12px;
+    line-height: 2.4;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.05em;
+  }
+
+  /* Work / News */
+  .work {
+    background: var(--offwhite);
+  }
+
+  .work-list {
+    border-top: 1px solid var(--grey-light);
+  }
+
+  .work-item {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 48px;
+    align-items: center;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--grey-light);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    cursor: none;
+  }
+
+  .work-item:hover {
+    padding-left: 16px;
+  }
+
+  .work-item:hover .work-arrow {
+    transform: translateX(8px);
+    color: var(--green);
+  }
+
+  .work-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--grey);
+  }
+
+  .work-title {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: 15px;
+    letter-spacing: 0.15em;
+    color: var(--navy-deep);
+  }
+
+  .work-tag {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--green);
+    background: var(--green-muted);
+    padding: 4px 12px;
+  }
+
+  .work-arrow {
+    font-size: 18px;
+    color: var(--grey-light);
+    transition: all 0.3s ease;
+    margin-left: 16px;
+  }
+
+  .work-item-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* Contact */
+  .contact {
+    background: var(--white);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 120px;
+    align-items: center;
+  }
+
+  .contact-text h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 200;
+    font-size: clamp(28px, 3vw, 44px);
+    letter-spacing: 0.2em;
+    color: var(--navy-deep);
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .contact-text p {
+    font-size: 13px;
+    line-height: 2.6;
+    color: var(--grey);
+    letter-spacing: 0.08em;
+    margin-bottom: 48px;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    color: var(--navy-deep);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--navy-deep);
+    transition: all 0.3s ease;
+  }
+
+  .contact-link:hover {
+    color: var(--green);
+    border-color: var(--green);
+    gap: 24px;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .contact-info-item label {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 12px;
+  }
+
+  .contact-info-item span {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 200;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    color: var(--navy-deep);
+  }
+
+  /* Footer */
+  footer {
+    background: var(--navy-deep);
+    padding: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .footer-logo-ja {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 0.3em;
+    color: var(--white);
+  }
+
+  .footer-logo-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.45em;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+  }
+
+  .footer-copy {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    text-decoration: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover {
+    color: var(--green-muted);
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scrollLine {
+    0% { left: -100%; }
+    50% { left: 0%; }
+    100% { left: 100%; }
+  }
+
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.25s; }
+  .reveal-delay-3 { transition-delay: 0.4s; }
+
+  /* Vertical text decoration */
+  .vertical-text {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 9px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--grey-light);
+    writing-mode: vertical-rl;
+    opacity: 0.6;
+  }
+
+  /* Green accent dot */
+  .dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    background: var(--green);
+    border-radius: 50%;
+    margin-bottom: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- Navigation -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-ja">文と質</span>
+    <span class="nav-logo-en">Aya to Kiji</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#artists">Artists</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="hero-left">
+    <p class="hero-eyebrow"><span class="dot"></span> &nbsp; Artist Management & Creative</p>
+    <h1 class="hero-title">
+      言葉と、<br>
+      素材が<br>
+      <em>出会う場所</em>
+    </h1>
+    <p class="hero-desc">アーティストの表現と、世界をつなぐ。<br>文章と素材の交差点から、新たな価値を生み出します。</p>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-image-placeholder">
+      <span class="hero-image-label">Artist Photo</span>
+    </div>
+    <span class="vertical-text">文と質 — Tokyo, Japan</span>
+  </div>
+</section>
+
+<!-- About -->
+<section class="about" id="about">
+  <div class="about-text reveal">
+    <p class="section-label">About</p>
+    <h2>アーティストの<br>可能性を、<br>ともに拓く。</h2>
+    <p>文と質は、言葉と素材を軸に活動するアーティストを支援する営利団体です。テキスト、テキスタイル、映像、インスタレーション——多様な表現の形を持つクリエイターたちと共に、国内外での活動基盤を構築します。<br><br>私たちは単なるマネジメントにとどまらず、アーティストとともに思考し、創造のプロセスに深く関与します。</p>
+  </div>
+  <div class="about-visual reveal reveal-delay-2">
+    <div class="about-card">
+      <p class="about-card-text">"The place where text and material find each other."</p>
+    </div>
+    <div class="about-card">
+      <p class="about-card-text">Since 2024</p>
+    </div>
+  </div>
+</section>
+
+<!-- Artists -->
+<section class="artists" id="artists">
+  <div class="artists-header reveal">
+    <div>
+      <p class="section-label">Artists</p>
+      <h2>所属アーティスト</h2>
+    </div>
+    <span class="artists-count">06</span>
+  </div>
+  <div class="artists-grid reveal reveal-delay-1">
+    <div class="artist-card">
+      <div class="artist-placeholder artist-placeholder-1">
+        <span class="artist-img-label">Photo</span>
+      </div>
+      <div class="artist-overlay">
+        <p class="artist-name-ja">写真をここに</p>
+        <p class="artist-name-en">Artist Name</p>
+        <p class="artist-role">Textile / Installation</p>
+      </div>
+    </div>
+    <div class="artist-card">
+      <div class="artist-placeholder artist-placeholder-2">
+        <span class="artist-img-label">Photo</span>
+      </div>
+      <div class="artist-overlay">
+        <p class="artist-name-ja">写真をここに</p>
+        <p class="artist-name-en">Artist Name</p>
+        <p class="artist-role">Writing / Poetry</p>
+      </div>
+    </div>
+    <div class="artist-card">
+      <div class="artist-placeholder artist-placeholder-3">
+        <span class="artist-img-label">Photo</span>
+      </div>
+      <div class="artist-overlay">
+        <p class="artist-name-ja">写真をここに</p>
+        <p class="artist-name-en">Artist Name</p>
+        <p class="artist-role">Painting / Mixed Media</p>
+      </div>
+    </div>
+    <div class="artist-card">
+      <div class="artist-placeholder artist-placeholder-4">
+        <span class="artist-img-label">Photo</span>
+      </div>
+      <div class="artist-overlay">
+        <p class="artist-name-ja">写真をここに</p>
+        <p class="artist-name-en">Artist Name</p>
+        <p class="artist-role">Photography</p>
+      </div>
+    </div>
+    <div class="artist-card">
+      <div class="artist-placeholder artist-placeholder-5">
+        <span class="artist-img-label">Photo</span>
+      </div>
+      <div class="artist-overlay">
+        <p class="artist-name-ja">写真をここに</p>
+        <p class="artist-name-en">Artist Name</p>
+        <p class="artist-role">Video / Performance</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section class="services" id="services">
+  <p class="section-label reveal">Services</p>
+  <div class="services-grid">
+    <div class="service-item reveal">
+      <span class="service-num">01</span>
+      <div class="service-content">
+        <h3>アーティスト<br>マネジメント</h3>
+        <p>スケジュール管理、交渉、契約サポートをはじめとした総合的なマネジメント業務。アーティストが制作に集中できる環境を整えます。</p>
+      </div>
+    </div>
+    <div class="service-item reveal reveal-delay-1">
+      <span class="service-num">02</span>
+      <div class="service-content">
+        <h3>展示・<br>プロジェクト企画</h3>
+        <p>国内外のギャラリーや文化機関と連携し、個展やグループ展の企画・制作進行を担います。</p>
+      </div>
+    </div>
+    <div class="service-item reveal reveal-delay-2">
+      <span class="service-num">03</span>
+      <div class="service-content">
+        <h3>ブランド・<br>コラボレーション</h3>
+        <p>ファッション、出版、デザインなど各分野のブランドとアーティストをつなぐコラボレーションのコーディネート。</p>
+      </div>
+    </div>
+    <div class="service-item reveal reveal-delay-3">
+      <span class="service-num">04</span>
+      <div class="service-content">
+        <h3>エディトリアル<br>サポート</h3>
+        <p>作家・テキスタイルアーティストのための編集・テキスト制作支援。ポートフォリオ、ステートメント、出版物の構成をサポートします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- News -->
+<section class="work" id="news">
+  <p class="section-label reveal">News & Works</p>
+  <div class="work-list">
+    <a href="#" class="work-item reveal">
+      <span class="work-date">2025.03</span>
+      <span class="work-title">第一回グループ展「文と質のあいだ」開催のお知らせ</span>
+      <div class="work-item-right">
+        <span class="work-tag">Exhibition</span>
+        <span class="work-arrow">→</span>
+      </div>
+    </a>
+    <a href="#" class="work-item reveal reveal-delay-1">
+      <span class="work-date">2025.02</span>
+      <span class="work-title">ブランドコラボレーションプロジェクト始動</span>
+      <div class="work-item-right">
+        <span class="work-tag">Project</span>
+        <span class="work-arrow">→</span>
+      </div>
+    </a>
+    <a href="#" class="work-item reveal reveal-delay-2">
+      <span class="work-date">2025.01</span>
+      <span class="work-title">文と質 設立のお知らせ — アーティスト募集について</span>
+      <div class="work-item-right">
+        <span class="work-tag">Notice</span>
+        <span class="work-arrow">→</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+  <div class="contact-text reveal">
+    <p class="section-label">Contact</p>
+    <h2>共に、<br>つくりましょう。</h2>
+    <p>アーティストの方、コラボレーションをご検討の企業・ブランドの方、お問い合わせはこちらからどうぞ。</p>
+    <a href="mailto:info@ayatokiji.jp" class="contact-link">
+      お問い合わせ &nbsp; →
+    </a>
+  </div>
+  <div class="contact-info reveal reveal-delay-2">
+    <div class="contact-info-item">
+      <label>Email</label>
+      <span>info@ayatokiji.jp</span>
+    </div>
+    <div class="contact-info-item">
+      <label>Location</label>
+      <span>東京都 / Tokyo, Japan</span>
+    </div>
+    <div class="contact-info-item">
+      <label>Social</label>
+      <span>@ayatokiji</span>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">
+    <span class="footer-logo-ja">文と質</span>
+    <span class="footer-logo-en">Aya to Kiji</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#">Privacy Policy</a></li>
+    <li><a href="#">Instagram</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Aya to Kiji. All Rights Reserved.</p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursor-ring');
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(2)';
+      cursorRing.style.transform = 'translate(-50%, -50%) scale(1.5)';
+      cursorRing.style.opacity = '1';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      cursorRing.style.transform = 'translate(-50%, -50%) scale(1)';
+      cursorRing.style.opacity = '0.5';
+    });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav scroll effect
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) {
+      nav.style.background = 'rgba(250,250,250,0.92)';
+      nav.style.backdropFilter = 'blur(12px)';
+      nav.style.padding = '20px 60px';
+      nav.style.transition = 'all 0.4s ease';
+    } else {
+      nav.style.background = 'transparent';
+      nav.style.backdropFilter = 'none';
+      nav.style.padding = '32px 60px';
+    }
+  });
+</script>
+</body>
+</html>
