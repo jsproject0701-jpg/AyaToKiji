@@ -296,7 +296,7 @@
 
   /* Section base */
   section {
-    padding: 120px 60px;
+    padding: 160px 80px;
   }
 
   .section-label {
@@ -329,15 +329,20 @@
     align-items: center;
   }
 
+
   .about-text h2 {
     font-family: "ryumin-pr6n", serif; 
     font-weight: 200;
-    font-size: clamp(28px, 3vw, 44px);
-    line-height: 1.8;
+    font-size: clamp(36px,5vw,64px);
+  line-height:1.6;
     letter-spacing: 0.2em;
     color: var(--navy-deep);
     margin-bottom: 40px;
   }
+
+  .about-text h2 br + text{
+  font-family:'Cormorant Garamond',serif;
+}
 
   .about-text p {
     font-size: 13px;
@@ -810,6 +815,17 @@
   }
 
   /* Reveal on scroll */
+  .reveal-left{
+  opacity:0;
+  transform:translateX(-40px);
+  transition: opacity 0.9s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.reveal-left.visible{
+  opacity:1;
+  transform:translateX(0);
+}
   .reveal {
     opacity: 0;
     transform: translateY(40px);
@@ -850,12 +866,28 @@
     margin-bottom: 2px;
   }
 
+  body::before{
+
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background-image:url("images/noise.png");
+  opacity:0.03;
+
+  pointer-events:none;
+  z-index:1000;
+
+}
+
   /* =========================
    Mobile Responsive
 ========================= */
 
 @media (max-width: 768px) {
-
+section{
+    padding:120px 24px;
+  }
   body{
     cursor:auto;
   }
@@ -1059,6 +1091,43 @@ nav.scrolled{
   will-change: transform;
 }
 
+  .artist-card::after{
+
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:linear-gradient(
+    120deg,
+    transparent 60%,
+    rgba(255,255,255,0.12),
+    transparent
+  );
+
+  opacity:0;
+  transition:0.6s;
+
+}
+
+.artist-card:hover::after{
+  opacity:1;
+}
+
+  .reveal-left{
+  opacity:0;
+  transform:translateX(-40px);
+  transition:0.9s;
+}
+
+.reveal-left.visible{
+  opacity:1;
+  transform:translateX(0);
+}
+.artist-card{
+  text-decoration:none;
+  color:inherit;
+  display:block;
+}
 </style>
 
 <script>
@@ -1157,7 +1226,7 @@ Photography / Sound / Art Direction / Creative Technology
 
 <!-- Artists -->
 <section class="artists" id="artists">
-  <div class="artists-header reveal">
+  <div class="artists-header reveal-left">
     <div>
       <p class="section-label">Collective</p>
       <h2>Artists</h2>
@@ -1167,37 +1236,37 @@ Photography / Sound / Art Direction / Creative Technology
 
   <div class="artists-grid reveal reveal-delay-1">
 
-    <div class="artist-card">
+    <a class="artist-card" href="artists/kazuma.html">
       <img src="images/Kazuma.JPG" alt="ヨシガカズマ">
       <div class="artist-overlay">
         <p class="artist-name-en">ヨシガカズマ</p>
         <p class="artist-role">Photography / Film</p>
       </div>
-    </div>
+    </a>
 
-    <div class="artist-card">
+    <a class="artist-card" href="artists/shin.html">
       <img src="images/Shin.JPG" alt="藤井心">
       <div class="artist-overlay">
         <p class="artist-name-en">藤井心</p>
         <p class="artist-role">Composition / Sound Engineering</p>
       </div>
-    </div>
+    </a>
 
-    <div class="artist-card">
+   <a class="artist-card" href="artists/chiaki.html">
       <img src="images/Chiaki.JPG" alt="藤井千明">
       <div class="artist-overlay">
         <p class="artist-name-en">藤井千明</p>
         <p class="artist-role">Painting / Music</p>
       </div>
-    </div>
+    </a>
 
-    <div class="artist-card">
-      <img src="images/Sayaka.jpg" alt="鄭沙也香">
-      <div class="artist-overlay">
-        <p class="artist-name-en">鄭沙也香</p>
-        <p class="artist-role">Music / Creative Technology</p>
-      </div>
-    </div>
+    <a class="artist-card" href="artists/sayaka.html">
+  <img src="images/Sayaka.jpg" alt="鄭沙也香">
+  <div class="artist-overlay">
+    <p class="artist-name-en">鄭沙也香</p>
+    <p class="artist-role">Music / Creative Technology</p>
+  </div>
+</a>
 
   </div>
 </section>
@@ -1381,7 +1450,7 @@ Photography / Sound / Art Direction / Creative Technology
   });
 
   // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
+  const reveals = document.querySelectorAll('.reveal, .reveal-left');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
