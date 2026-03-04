@@ -153,6 +153,36 @@
 }
 
   /* Hero */
+  .hero{
+  position:relative;
+  height:100vh;
+  overflow:hidden;
+}
+
+.hero img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.hero-text{
+  position:absolute;
+  bottom:80px;
+  left:80px;
+  color:white;
+}
+
+.hero-text h1{
+  font-family:"ryumin-pr6n",serif;
+  font-size:48px;
+  letter-spacing:0.3em;
+}
+
+.hero-text p{
+  font-family:'Cormorant Garamond',serif;
+  letter-spacing:0.4em;
+}
+  
   .hero {
     min-height: 100vh;
     display: grid;
@@ -247,6 +277,18 @@
       );
   }
 
+  .hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.15),
+    rgba(0,0,0,0.45)
+  );
+}
+
   .hero-image-label {
     font-family: 'Cormorant Garamond', serif;
     font-size: 11px;
@@ -340,9 +382,7 @@
     margin-bottom: 40px;
   }
 
-  .about-text h2 br + text{
-  font-family:'Cormorant Garamond',serif;
-}
+ 
 
   .about-text p {
     font-size: 13px;
@@ -984,11 +1024,58 @@ section{
   /* Footer */
 
   footer{
-    flex-direction:column;
-    gap:20px;
-    text-align:center;
-    padding:40px 20px;
-  }
+  background: var(--navy-deep);
+  padding: 60px 80px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-top:clamp(120px,10vw,200px);
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+
+
+.footer-logo{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.footer-logo-ja{
+  font-size:14px;
+}
+
+.footer-links{
+  display:flex;
+  gap:32px;
+  list-style:none;
+  align-items:center;
+}
+
+.footer-links a{
+  text-decoration:none;
+  font-family:'Cormorant Garamond',serif;
+  font-size:10px;
+  letter-spacing:0.4em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.35);
+  transition:color 0.3s;
+}
+
+.footer-links a:hover{
+  color:var(--green-muted);
+}
+
+.footer-copy{
+  font-family:'Cormorant Garamond',serif;
+  font-size:10px;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.25);
+}
+
+
 
 }
 
@@ -1219,8 +1306,17 @@ window.addEventListener("scroll", () => {
 
 
 <!-- Hero -->
+<section class="hero">
 
+  <img src="images/ayatokiji.jpg" alt="Aya to Kiji">
 
+  <div class="hero-text">
+    <h1>文と質</h1>
+    <p>Aya to Kiji</p>
+  </div>
+
+</section>
+  
 <!-- About -->
   
 <section class="about" id="about">
@@ -1431,9 +1527,10 @@ Photography / Sound / Art Direction / Creative Technology
     <span class="footer-logo-en">Aya to Kiji</span>
   </div>
   <ul class="footer-links">
-    <li><a href="#">Privacy Policy</a></li>
+    <li><a href="privacy.html">Privacy Policy</a></li>
   </ul>
   <p class="footer-copy">© 2026 Aya to Kiji. All Rights Reserved.</p>
+  
 </footer>
 
 <script>
@@ -1541,13 +1638,23 @@ toggle.addEventListener("click", () => {
 
 document.querySelectorAll('nav a').forEach(anchor=>{
   anchor.addEventListener('click',function(e){
-    e.preventDefault();
 
-    const target = document.querySelector(this.getAttribute('href'));
+    const targetId = this.getAttribute('href');
 
-    target.scrollIntoView({
-      behavior:'smooth'
-    });
+    if(targetId.startsWith("#") && targetId.length > 1){
+
+      e.preventDefault();
+
+      const target = document.querySelector(targetId);
+
+      if(target){
+        target.scrollIntoView({
+          behavior:'smooth'
+        });
+      }
+
+    }
+
   });
 });
 </script>
