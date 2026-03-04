@@ -332,52 +332,42 @@
     max-width: 480px;
   }
 
-  .about-visual {
-    position: relative;
-    height: 480px;
-  }
+  /* About Visual (Square Theme Image) */
+.about-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .about-card {
-    position: absolute;
-    background: var(--white);
-    padding: 48px;
-  }
+.about-image-wrapper {
+  position: relative;
+  width: 420px;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
 
-  .about-card:first-child {
-    top: 0;
-    right: 0;
-    width: 80%;
-    height: 320px;
-    background: var(--navy);
-    display: flex;
-    align-items: flex-end;
-  }
+.about-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s ease;
+}
 
-  .about-card:last-child {
-    bottom: 0;
-    left: 0;
-    width: 60%;
-    height: 200px;
-    background: var(--green-muted);
-    display: flex;
-    align-items: center;
-  }
+.about-image-wrapper:hover img {
+  transform: scale(1.04);
+}
 
-  .about-card-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 18px;
-    line-height: 1.6;
-    color: rgba(255,255,255,0.7);
-    letter-spacing: 0.05em;
-  }
-
-  .about-card:last-child .about-card-text {
-    color: var(--green);
-    font-size: 13px;
-    font-style: normal;
-    letter-spacing: 0.2em;
-  }
+.about-caption {
+  position: absolute;
+  bottom: 16px;
+  left: 20px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+}
 
   /* Artists */
 .artists {
@@ -837,6 +827,7 @@
 </section>
 
 <!-- About -->
+  
 <section class="about" id="about">
   <div class="about-text reveal">
     <p class="section-label">About</p>
@@ -854,13 +845,11 @@ Photography / Sound / Art Direction / Creative Technology
 </p>
   </div>
   <div class="about-visual reveal reveal-delay-2">
-    <div class="about-card">
-      <p class="about-card-text">"The place where text and material find each other."</p>
-    </div>
-    <div class="about-card">
-      <p class="about-card-text">Since 2024</p>
-    </div>
+  <div class="about-image-wrapper">
+    <img src="images/ayatokiji.jpg" alt="Aya to Kiji Theme">
+    <span class="about-caption">Aya to Kiji — Theme</span>
   </div>
+</div>
 </section>
 
 <!-- Artists -->
@@ -876,7 +865,7 @@ Photography / Sound / Art Direction / Creative Technology
   <div class="artists-grid reveal reveal-delay-1">
 
     <div class="artist-card">
-      <img src="images/Kazuma.jpg" alt="ヨシガカズマ">
+      <img src="images/Kazuma.JPG" alt="ヨシガカズマ">
       <div class="artist-overlay">
         <p class="artist-name-en">ヨシガカズマ</p>
         <p class="artist-role">Photography / Film</p>
@@ -884,7 +873,7 @@ Photography / Sound / Art Direction / Creative Technology
     </div>
 
     <div class="artist-card">
-      <img src="images/Shin.jpg" alt="藤井心">
+      <img src="images/Shin.JPG" alt="藤井心">
       <div class="artist-overlay">
         <p class="artist-name-en">藤井心</p>
         <p class="artist-role">Composition / Sound Engineering</p>
@@ -892,7 +881,7 @@ Photography / Sound / Art Direction / Creative Technology
     </div>
 
     <div class="artist-card">
-      <img src="images/Chiaki.jpg" alt="藤井千明">
+      <img src="images/Chiaki.JPG" alt="藤井千明">
       <div class="artist-overlay">
         <p class="artist-name-en">藤井千明</p>
         <p class="artist-role">Painting / Music</p>
@@ -900,7 +889,7 @@ Photography / Sound / Art Direction / Creative Technology
     </div>
 
     <div class="artist-card">
-      <img src="images/Sayaka.jpg" alt="鄭沙也香">
+      <img src="images/Sayaka.JPG" alt="鄭沙也香">
       <div class="artist-overlay">
         <p class="artist-name-en">鄭沙也香</p>
         <p class="artist-role">Music / Creative Technology</p>
