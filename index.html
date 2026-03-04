@@ -66,26 +66,41 @@
   }
 
   /* Navigation */
+
   nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    padding: 32px 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    mix-blend-mode: multiply;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 32px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  background: linear-gradient(
+    135deg,
+    #0f1526 0%,
+    #162038 40%,
+    rgba(31,58,47,0.85) 70%,
+    rgba(31,58,47,0) 100%
+  );
+
+  backdrop-filter: blur(10px);
+}
 
   .nav-logo {
     display: flex;
     flex-direction: column;
     gap: 2px;
     text-decoration: none;
-    color: var(--navy-deep);
+    color: var(--white);
   }
+
+
+.nav-links a {
+  color: var(--white);
+}
 
   .nav-logo-ja {
     font-family: "ryumin-pr6n", serif; 
@@ -137,6 +152,23 @@
   .nav-links a:hover::after {
     width: 100%;
   }
+
+  nav::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-120px;
+  height:120px;
+
+  background:linear-gradient(
+    to bottom,
+    rgba(15,21,38,0.6),
+    rgba(15,21,38,0)
+  );
+
+  pointer-events:none;
+}
 
   /* Hero */
   .hero {
@@ -1120,7 +1152,7 @@ Photography / Sound / Art Direction / Creative Technology
   const nav = document.querySelector('nav');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 80) {
-      nav.style.background = 'rgba(250,250,250,0.92)';
+      nav.style.background = 'linear-gradient(135deg,#0f1526,#1f3a2f)';
       nav.style.backdropFilter = 'blur(12px)';
       nav.style.padding = '20px 60px';
       nav.style.transition = 'all 0.4s ease';
