@@ -426,13 +426,32 @@
 
   transition: transform 0.5s ease, box-shadow 0.5s ease;
   transform: translateY(0);
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
 .artist-card:hover{
-  transform: translateY(-10px);
+  transform: translateY(-10px) rotateX(3deg) rotateY(-3deg);
   box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
+.artists-grid .artist-card:nth-child(1){
+  transition-delay:0.05s;
+}
+
+.artists-grid .artist-card:nth-child(2){
+  transition-delay:0.15s;
+}
+
+.artists-grid .artist-card:nth-child(3){
+  transition-delay:0.25s;
+}
+
+.artists-grid .artist-card:nth-child(4){
+  transition-delay:0.35s;
+}
 
   .artist-card img{
   width:100%;
@@ -1034,6 +1053,12 @@ nav.scrolled{
   backdrop-filter: blur(12px);
 }
 
+  .about-image-wrapper img{
+  transform: scale(1.05);
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
+
 </style>
 
 <script>
@@ -1056,6 +1081,18 @@ nav.scrolled{
     };
     s.parentNode.insertBefore(tk,s)
   })(document);
+
+const aboutImage = document.querySelector(".about-image-wrapper img");
+
+window.addEventListener("scroll", () => {
+
+  const rect = aboutImage.getBoundingClientRect();
+  const speed = rect.top * 0.05;
+
+  aboutImage.style.transform =
+    `translateY(${speed}px) scale(1.05)`;
+
+});
 </script>
   
 </head>
