@@ -380,116 +380,90 @@
   }
 
   /* Artists */
-  .artists {
-    background: var(--white);
-  }
+.artists {
+  background: var(--white);
+}
 
-  .artists-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 80px;
-  }
+.artists-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 80px;
+}
 
-  .artists-header h2 {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 200;
-    font-size: clamp(28px, 3vw, 44px);
-    letter-spacing: 0.2em;
-    color: var(--navy-deep);
-  }
+.artists-header h2 {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 200;
+  font-size: clamp(28px, 3vw, 44px);
+  letter-spacing: 0.2em;
+  color: var(--navy-deep);
+}
 
-  .artists-count {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 72px;
-    font-weight: 300;
-    color: var(--grey-light);
-    line-height: 1;
-  }
+.artists-count {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 72px;
+  font-weight: 300;
+  color: var(--grey-light);
+  line-height: 1;
+}
 
-  .artists-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-  }
+.artists-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
 
-  .artist-card {
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 3/4;
-    background: var(--grey-pale);
-    cursor: none;
-  }
+.artist-card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: var(--grey-pale);
+}
 
-  .artist-card:first-child {
-    grid-row: span 2;
-    aspect-ratio: auto;
-  }
+.artist-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
 
-  .artist-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
+.artist-card:hover img {
+  transform: scale(1.05);
+}
 
-  .artist-placeholder-1 { background: linear-gradient(135deg, #c8d9d2 0%, #3d6b56 100%); }
-  .artist-placeholder-2 { background: linear-gradient(135deg, #d8dade 0%, #1a2340 100%); }
-  .artist-placeholder-3 { background: linear-gradient(135deg, #1a2340 0%, #3d6b56 100%); }
-  .artist-placeholder-4 { background: linear-gradient(135deg, #f2f3f4 0%, #c8d9d2 100%); }
-  .artist-placeholder-5 { background: linear-gradient(135deg, #3d6b56 0%, #0f1526 100%); }
+.artist-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15,21,38,0.85) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px;
+}
 
-  .artist-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(15,21,38,0.85) 0%, transparent 50%);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 36px;
-  }
+.artist-card:hover .artist-overlay {
+  opacity: 1;
+}
 
-  .artist-card:hover .artist-overlay {
-    opacity: 1;
-  }
+.artist-name-en {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: 0.15em;
+  color: var(--white);
+}
 
-  .artist-name-ja {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 300;
-    font-size: 16px;
-    letter-spacing: 0.25em;
-    color: var(--white);
-    margin-bottom: 4px;
-  }
-
-  .artist-name-en {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 11px;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--green-muted);
-  }
-
-  .artist-role {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 10px;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-    margin-top: 12px;
-  }
-
-  .artist-img-label {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.25);
-  }
+.artist-role {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-top: 10px;
+}
 
   /* Services */
   .services {
@@ -893,52 +867,46 @@ Photography / Sound / Art Direction / Creative Technology
 <section class="artists" id="artists">
   <div class="artists-header reveal">
     <div>
-      <p class="section-label">Artists</p>
-      <h2>所属アーティスト</h2>
+      <p class="section-label">Collective</p>
+      <h2>Artists</h2>
     </div>
-    <span class="artists-count">06</span>
+    <span class="artists-count">04</span>
   </div>
+
   <div class="artists-grid reveal reveal-delay-1">
+
     <div class="artist-card">
-      <div class="artist-placeholder artist-placeholder-1">
-        <span class="artist-img-label">Photo</span>
-      </div>
+      <img src="images/yoshiga.jpg" alt="ヨシガカズマ">
       <div class="artist-overlay">
-        <p class="artist-name-ja">写真をここに</p>
         <p class="artist-name-en">ヨシガカズマ</p>
-        <p class="artist-role">写真家 / 映像クリエイター</p>
+        <p class="artist-role">Photography / Film</p>
       </div>
     </div>
+
     <div class="artist-card">
-      <div class="artist-placeholder artist-placeholder-2">
-        <span class="artist-img-label">Photo</span>
-      </div>
+      <img src="images/fujii-shin.jpg" alt="藤井心">
       <div class="artist-overlay">
-        <p class="artist-name-ja">写真をここに</p>
         <p class="artist-name-en">藤井心</p>
-        <p class="artist-role">作曲家 / サウンドエンジニア</p>
+        <p class="artist-role">Composition / Sound Engineering</p>
       </div>
     </div>
+
     <div class="artist-card">
-      <div class="artist-placeholder artist-placeholder-3">
-        <span class="artist-img-label">Photo</span>
-      </div>
+      <img src="images/fujii-chiaki.jpg" alt="藤井千明">
       <div class="artist-overlay">
-        <p class="artist-name-ja">写真をここに</p>
         <p class="artist-name-en">藤井千明</p>
-        <p class="artist-role">画家 / 音楽家</p>
+        <p class="artist-role">Painting / Music</p>
       </div>
     </div>
+
     <div class="artist-card">
-      <div class="artist-placeholder artist-placeholder-4">
-        <span class="artist-img-label">Photo</span>
-      </div>
+      <img src="images/jeong-sayaka.jpg" alt="鄭沙也香">
       <div class="artist-overlay">
-        <p class="artist-name-ja">写真をここに</p>
         <p class="artist-name-en">鄭沙也香</p>
-        <p class="artist-role">音楽家 / ITエンジニア・アナリスト</p>
+        <p class="artist-role">Music / Creative Technology</p>
       </div>
     </div>
+
   </div>
 </section>
 
