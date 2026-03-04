@@ -837,6 +837,101 @@
     border-radius: 50%;
     margin-bottom: 2px;
   }
+
+  /* =========================
+   Mobile Responsive
+========================= */
+
+@media (max-width: 768px) {
+
+  body{
+    cursor:auto;
+  }
+
+  .cursor,
+  .cursor-ring{
+    display:none;
+  }
+
+  nav{
+    padding:20px 20px;
+  }
+
+  .nav-links{
+    gap:18px;
+    font-size:10px;
+  }
+
+  section{
+    padding:80px 24px;
+  }
+
+  /* About */
+
+  .about{
+    grid-template-columns:1fr;
+    gap:40px;
+  }
+
+  .about-image-wrapper{
+    width:100%;
+    max-width:420px;
+  }
+
+  /* Artists */
+
+  .artists-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .artists-count{
+    font-size:48px;
+  }
+
+  /* Services */
+
+  .services-grid{
+    grid-template-columns:1fr;
+  }
+
+  .service-item{
+    grid-template-columns:40px 1fr;
+    padding-right:0;
+  }
+
+  .service-item:nth-child(even){
+    padding-left:0;
+    border-left:none;
+  }
+
+  /* News */
+
+  .work-item{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .work-item-right{
+    justify-content:space-between;
+  }
+
+  /* Contact */
+
+  .contact{
+    grid-template-columns:1fr;
+    gap:60px;
+  }
+
+  /* Footer */
+
+  footer{
+    flex-direction:column;
+    gap:20px;
+    text-align:center;
+    padding:40px 20px;
+  }
+
+}
 </style>
 
 <script>
