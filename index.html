@@ -665,6 +665,23 @@
     color: var(--navy-deep);
   }
 
+  .instagram-qr {
+  margin-top: 20px;
+}
+
+.instagram-qr img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  opacity: 0.8;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.instagram-qr img:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
   /* Footer */
   footer {
     background: var(--navy-deep);
@@ -1041,9 +1058,15 @@ Photography / Sound / Art Direction / Creative Technology
       <span>山口県 / Yamaguchi, Japan</span>
     </div>
     <div class="contact-info-item">
-      <label>Instagram</label>
-      <span>@aya_to_kiji</span>
-    </div>
+  <label>Instagram</label>
+  <span>@aya_to_kiji</span>
+
+  <div class="instagram-qr">
+    <a href="https://instagram.com/aya_to_kiji" target="_blank">
+      <img src="images/qr.png" alt="Instagram QR Code">
+    </a>
+  </div>
+</div>
   </div>
 </section>
 
@@ -1055,7 +1078,6 @@ Photography / Sound / Art Direction / Creative Technology
   </div>
   <ul class="footer-links">
     <li><a href="#">Privacy Policy</a></li>
-    <li><a href="#">Instagram: @aya_to_kiji</a></li>
   </ul>
   <p class="footer-copy">© 2026 Aya to Kiji. All Rights Reserved.</p>
 </footer>
