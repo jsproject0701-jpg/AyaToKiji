@@ -88,7 +88,7 @@
   }
 
   .nav-logo-ja {
-    font-family: 'Noto Serif JP', serif;
+    font-family: "ryumin-pr6n", serif; 
     font-weight: 300;
     font-size: 15px;
     letter-spacing: 0.3em;
@@ -166,9 +166,10 @@
     opacity: 0;
     animation: fadeUp 1s ease 0.4s forwards;
   }
-
+  
+  
   .hero-title {
-    font-family: 'Noto Serif JP', serif;
+    font-family: "ryumin-pr6n", serif;
     font-weight: 200;
     font-size: clamp(42px, 5vw, 72px);
     line-height: 1.5;
@@ -315,7 +316,7 @@
   }
 
   .about-text h2 {
-    font-family: 'Noto Serif JP', serif;
+    font-family: "ryumin-pr6n", serif; 
     font-weight: 200;
     font-size: clamp(28px, 3vw, 44px);
     line-height: 1.8;
@@ -782,6 +783,29 @@
     margin-bottom: 2px;
   }
 </style>
+
+<script>
+  (function(d) {
+    var config = {
+      kitId: 'xxxxxxx',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),
+    tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;
+    h.className+=" wf-loading";
+    tk.src='https://use.typekit.net/'+config.kitId+'.js';
+    tk.async=true;
+    tk.onload=tk.onreadystatechange=function(){
+      a=this.readyState;
+      if(f||a&&a!="complete"&&a!="loaded")return;
+      f=true;clearTimeout(t);
+      try{Typekit.load(config)}catch(e){}
+    };
+    s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+  
 </head>
 <body>
 
@@ -791,7 +815,7 @@
 <!-- Navigation -->
 <nav>
   <a href="#" class="nav-logo">
-    <span class="nav-logo-ja">文と質</span>
+    <span class="nav-logo-ja">文と質</span> 
     <span class="nav-logo-en">Aya to Kiji</span>
   </a>
   <ul class="nav-links">
