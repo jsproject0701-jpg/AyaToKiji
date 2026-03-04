@@ -98,10 +98,6 @@
   }
 
 
-.nav-links a {
-  color: var(--white);
-}
-
   .nav-logo-ja {
     font-family: "ryumin-pr6n", serif; 
     font-weight: 300;
@@ -127,16 +123,16 @@
   }
 
   .nav-links a {
-    text-decoration: none;
-    color: var(--navy-deep);
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: 12px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    position: relative;
-    padding-bottom: 2px;
-  }
+  text-decoration: none;
+  color: var(--white);
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 2px;
+}
 
   .nav-links a::after {
     content: '';
@@ -932,6 +928,72 @@
   }
 
 }
+
+/* =========================
+Hamburger Menu
+========================= */
+
+.menu-toggle{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+}
+
+.menu-toggle span{
+  width:22px;
+  height:2px;
+  background:white;
+  display:block;
+}
+
+/* =========================
+Mobile
+========================= */
+
+@media (max-width:768px){
+
+  nav{
+    padding:20px 24px;
+    align-items:center;
+  }
+
+  .menu-toggle{
+    display:flex;
+  }
+
+  .nav-links{
+    position:fixed;
+    top:0;
+    right:-100%;
+    height:100vh;
+    width:70%;
+    background:#0f1526;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+    transition:0.4s;
+  }
+
+  .nav-links a{
+    font-size:14px;
+    letter-spacing:0.4em;
+  }
+
+  .nav-links.active{
+    right:0;
+  }
+
+}
+
+  .menu-toggle{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+  margin-top:6px;
+}
 </style>
 
 <script>
@@ -1258,14 +1320,41 @@ Photography / Sound / Art Direction / Creative Technology
     if (window.scrollY > 80) {
       nav.style.background = 'linear-gradient(135deg,#0f1526,#1f3a2f)';
       nav.style.backdropFilter = 'blur(12px)';
-      nav.style.padding = '20px 60px';
+      if (window.innerWidth < 768){
+  nav.style.padding = '16px 24px';
+}else{
+  nav.style.padding = '20px 60px';
+}
       nav.style.transition = 'all 0.4s ease';
     } else {
       nav.style.background = 'transparent';
       nav.style.backdropFilter = 'none';
-      nav.style.padding = '32px 60px';
+      if (window.innerWidth < 768){
+  nav.style.padding = '20px 24px';
+}else{
+  nav.style.padding = '32px 60px';
+}
     }
   });
+
+    const toggle = document.getElementById("menu-toggle");
+  const navLinks = document.getElementById("nav-links");
+  
+  toggle.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+
+  if(navLinks.classList.contains("active")){
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
+});
+
+  document.querySelectorAll(".nav-links a").forEach(link=>{
+  link.addEventListener("click",()=>{
+    navLinks.classList.remove("active");
+  });
+});
 </script>
 </body>
 </html>
